@@ -1,0 +1,10 @@
+GBK GBK GBK GBK GBK GBK GBK
+这是一个测试文件
+abc
+123
+这个测试文本结束
+
+上面有一个空行
+ 
+上面有一个空格行
+GBK GBK GBK GBK GBK GBK GBK
