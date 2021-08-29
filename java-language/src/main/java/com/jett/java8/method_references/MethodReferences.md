@@ -1,12 +1,12 @@
 方法引用是java8的新特性之一， 可以直接引用已有Java类或对象的方法或构造器。
 方法引用与[lambda表达式](https://www.jianshu.com/p/8d7f98116693)结合使用，可以进一步简化代码。
 
-java8方法引用有四种形式：
+java8方法引用有[四种形式](https://www.jianshu.com/p/62465b26818f)：
 
 - 静态方法引用　　　　　　　：　 　ClassName :: staticMethodName
 - 构造器引用　　　　　　　　：　 　ClassName :: new
 - 类的任意对象的实例方法引用：　 　ClassName :: instanceMethodName
-- 特定对象的实例方法引用　　：　 　object :: instanceMethodName
+- 特定对象的实例方法引用　　：　 　object    :: instanceMethodName
 
 **静态方法引用**的语法格式为： 类名::静态方法名 ，
 如 System.out::println 等价于 lambda表达式 s -> System.out.println(s) ，代码示例：
