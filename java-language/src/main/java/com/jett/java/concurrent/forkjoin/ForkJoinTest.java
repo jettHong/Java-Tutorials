@@ -1,7 +1,5 @@
-package com.jett.java.concurrent.thread.fork;
+package com.jett.java.concurrent.forkjoin;
 
-import javax.sound.midi.Soundbank;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
