@@ -1,4 +1,4 @@
-package com.jett.java.concurrent;
+package com.jett.java.concurrent.volatile_test;
 
 import org.junit.Test;
 

@@ -2,7 +2,6 @@ package com.jett.java.concurrent.thread;
 
 import org.junit.Test;
 
-import javax.sound.midi.Soundbank;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -156,6 +155,128 @@ public class ThreadTest {
         // 取得处理结果
         String result = task.get();
         System.out.println(result);
+    }
+    
+    
+    /**
+     * 打印线程状态
+     *
+     * @see java.lang.Thread.State
+     * NEW：创建初始时。
+     * RUNNABLE：运行时
+     * |_Ready：准备态
+     * |_Running：执行态
+     * BLOCKED：阻塞态
+     * WAITING：等待态
+     * TIMED_WAITING：等待态-时间限制，时间到了，继续执行
+     * TERMINATED：结束时
+     * REF:https://www.bilibili.com/video/BV1fE411s7Mx
+     */
+    @Test
+    public void printState() throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            System.out.println("--线程开始。");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("--线程结束。");
+        });
+        System.out.println("创建时：" + thread.getState());
+        thread.start();
+        System.out.println("启动时：" + thread.getState());
+        Thread.sleep(2000); //主线等待子线程结束。
+        System.out.println("结束时：" + thread.getState());
+    }
+    
+    /**
+     * 打印阻塞态
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    public void printStateBlocked() throws InterruptedException {
+        Thread manA = new Thread(() -> {
+            Toilet.user("A", 10);
+        });
+        manA.start();
+        Thread.sleep(10);
+        
+        Thread manB = new Thread(() -> {
+            Toilet.user("B", 10);
+        });
+        manB.start();
+        Thread.sleep(10);
+        
+        System.out.println(manB.getState()); // 输出：BLOCKED
+    }
+    
+    /**
+     * 公共厕所
+     */
+    static class Toilet {
+        public static synchronized void user(String name, int second) {
+            System.out.println("who use toilet:" + name);
+            try {
+                Thread.sleep(second * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    /**
+     * 打印等待态、
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    public void printStateWait() throws InterruptedException {
+        DinnerRoom room = new DinnerRoom();
+        
+        Thread manA = new Thread(() -> {
+            room.use("A");
+        });
+        manA.start();
+        Thread.sleep(10);
+        System.out.println(manA.getState()); // 输出：WAITING
+        Thread.sleep(2000); // 延时2秒，让A信息打印完整。
+        System.out.println("===================");
+        
+        Thread manB = new Thread(() -> {
+            room.use("B", 1000);
+        });
+        manB.start();
+        Thread.sleep(10);
+        System.out.println(manB.getState()); // 输出：WAITING
+        Thread.sleep(2000); // 延时2秒，让B信息打印完整。
+    }
+    
+    /**
+     * 餐厅吃饭
+     */
+    class DinnerRoom {
+        public synchronized void use(String name) {
+            System.out.println("准备吃饭:" + name);
+            try {
+                System.out.println("等待餐厅准备食物");
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        public synchronized void use(String name, int second) {
+            System.out.println("准备吃饭:" + name);
+            try {
+                System.out.println("等待餐厅准备食物");
+                wait(second);
+                System.out.println(String.format("等待了%d秒，不等了，结账", second));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
 }

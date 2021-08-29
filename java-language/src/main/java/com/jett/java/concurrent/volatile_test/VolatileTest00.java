@@ -1,9 +1,4 @@
-package com.jett.java.concurrent;
-
-import org.junit.Test;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
+package com.jett.java.concurrent.volatile_test;
 
 /**
  * 演示在 volatile 作用。
@@ -31,11 +26,11 @@ public class VolatileTest00 implements Runnable {
     }
     
     public static void main(String[] args) throws InterruptedException {
-        VolatileTest00 v = new VolatileTest00();
+        VolatileTest00 test = new VolatileTest00();
         System.out.println("开始");
-        v.run();
+        test.run();
         Thread.sleep(2 * 1000);
-        v.stopMe();
+        test.stopMe();
         Thread.sleep(2 * 1000);
     }
     
