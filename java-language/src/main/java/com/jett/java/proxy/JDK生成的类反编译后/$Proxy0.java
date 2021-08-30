@@ -1,4 +1,6 @@
 package com.jett.java.proxy.JDK生成的类反编译后;
+// 原始包
+// package com.sun.proxy;
 
 import com.jett.java.proxy.Human;
 
@@ -9,7 +11,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * 本类是JDK自动生成，反编译后。
- * 本类生成的位置：Java-Tutorials\com\jett\java\proxy
+ * 本类生成的位置：Java-Tutorials\com\sun\proxy
  */
 final class $Proxy0 extends Proxy implements Human {
   
