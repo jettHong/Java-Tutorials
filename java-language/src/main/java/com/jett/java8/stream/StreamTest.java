@@ -20,6 +20,7 @@ import java.util.stream.Stream;
  * REF：
  * https://www.cnblogs.com/JavaWeiBianCheng/tag/stream/
  * https://zhuanlan.zhihu.com/p/28112239
+ * https://mp.weixin.qq.com/s/zgv8MCw5D2bR1rU84loN6A (20 个实例玩转 Java 8 Stream)
  */
 public class StreamTest {
     
@@ -64,9 +65,28 @@ public class StreamTest {
         System.out.println(intList);
         // 排序数值
         Stream<Integer> sortedList = intList.stream().sorted(Comparator.comparingInt(m -> m.intValue()));
-        System.out.println(sortedList);
+        System.out.println(Arrays.toString(sortedList.toArray()));
+
         // 排序字串
-        System.out.println(strings.stream().sorted(Comparator.comparing(String::toString)));
+        Collections.sort(strings, (x, y) -> {
+            if (x == null) {
+                return -1;
+            } else if (y == null) {
+                return 1;
+            } else {
+                return x.compareTo(y);
+            }
+        });
+        System.out.println(strings);
+        //FIXME 本例中有null元素，直接.sorted会导致 NPE。
+
+//        System.out.println(collect);
+        // 下面示例所说可以避免NPE。
+        // Comparator.nullsFirst()、Comparator.nullsLast()
+        // list.stream().sorted(Comparator.comparing(l -> l.getCreateTime(), Comparator.nullsFirst(Date::compareTo))).collect(Collectors.toList());
+//        List<SampleBean> sortedBeanList = beanList.stream().sorted(
+//                Comparator.comparing(i -> i.getFriends(), Comparator.nullsFirst(List::size::compare))
+//                ).collect(Collectors.toList());
     }
     
     /**
