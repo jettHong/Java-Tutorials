@@ -9,7 +9,7 @@ public class UserInfo {
     private int age;
     private String sex;
     
-    private UserInfo() {
+    private UserInfo(String name, int age) {
         System.out.println("构造方法（私有的）");
         this.age = age;
     }
@@ -17,6 +17,9 @@ public class UserInfo {
     protected UserInfo(int age) {
         System.out.println("构造方法（受保护的）：" + age);
         this.age = age;
+    }
+    
+    public UserInfo() {
     }
     
     public UserInfo(String name) {

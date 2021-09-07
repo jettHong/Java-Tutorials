@@ -26,11 +26,15 @@ public class MyReflectionTest02 {
             System.out.println("构造函数：" + constructor);
             
         }
+        System.out.println("--------------------");
+        
+        // 取得默认无参构造函数
         Constructor con = clazz.getConstructor();
         // 3、获取对象
         // con.newInstance(实参);
         Object obj = con.newInstance();
         System.out.println(obj);
+        System.out.println("--------------------");
         
         // ==============成员方法 getMethod=================
         Method[] methods = obj.getClass().getMethods();
