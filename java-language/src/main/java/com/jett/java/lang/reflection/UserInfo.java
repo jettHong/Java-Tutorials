@@ -3,7 +3,7 @@ package com.jett.java.lang.reflection;
 /**
  * POJO对象
  */
-public class UserInfo {
+public class UserInfo extends UserInfoB {
     
     private String name;
     private int age;
