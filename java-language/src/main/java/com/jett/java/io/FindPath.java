@@ -1,7 +1,7 @@
-package com.jett.java;
+package com.jett.java.io;
 
 /**
- * 文件查找
+ * 文件查找，路径
  */
 public class FindPath {
     public static void main(String[] args) {
