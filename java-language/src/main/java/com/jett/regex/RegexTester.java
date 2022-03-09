@@ -1,6 +1,7 @@
 package com.jett.regex;
 
 import cn.hutool.core.date.StopWatch;
+import cn.hutool.core.lang.Validator;
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -111,6 +112,32 @@ public class RegexTester {
         // Time Elapsed: 606
         // Time Elapsed: 572
         // Time Elapsed: 653
+    }
+    
+    
+    @Test
+    public void money() throws InterruptedException {
+        String[] moneys = {
+                "123.456", // 尾部超过2位
+                "0123.00", // 头部有0
+                "F23.00", // 有非数值类型
+                "-123.00", // 非正数
+                "12345678901234567890.00", // 整数部分超过 18 位
+                "123.45",   //
+                "123"   //
+        };
+    
+        Pattern p = Pattern.compile("^[0-9]{0,18}.[0-9]{0,2}$"); // 仅考虑
+        for (String str : moneys) {
+            System.out.println(str + "\t=\t" +p.matcher(str).matches());
+        }
+    
+    
+        System.out.println("-----------------");
+        
+        for (String str : moneys) {
+            System.out.println(str + "\t=\t" + Validator.isMoney(str));
+        }
     }
     
     

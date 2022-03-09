@@ -8,8 +8,8 @@ package com.jett.java8.lambda;
  */
 public class LambdaTester01 {
     
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(10 * 1000);
         // 1、使用接口实现类
         GreetingService interfaceImpl = new MyGreetingServiceImpl();
         interfaceImpl.sayMessage("使用接口实现类");

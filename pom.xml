@@ -12,6 +12,7 @@
         <module>java-language</module>
         <module>java-design-patterns</module>
         <module>java-algorithm</module>
+        <module>jvm-oom</module>
     </modules>
 
     <properties>

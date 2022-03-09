@@ -8,7 +8,8 @@ package com.jett.java.lang.string;
  */
 public class StrTest {
     public static void main(String[] args) {
-        String dateStr = "12345678";
+        String dateStr = "350200000000-012AAAA";
+        System.out.println(dateStr.substring(0, 16));
         String result = dateStr.substring(0,4) + "-" + dateStr.substring(4,6) + "-" + dateStr.substring(6,8);
         System.out.println(result);
         // 与其它类型的转换 toString

@@ -143,6 +143,11 @@ public class StreamTest {
         String names = beanList.stream().map(SampleBean::getName).collect(Collectors.joining(",", "(", ")"));
         // (小东,小明,华强,狗蛋)
         System.out.println(names);
+    
+    
+        Object[] objects = beanList.stream().map(SampleBean::getName).toArray();
+        // (小东,小明,华强,狗蛋)
+        System.out.println(objects);
     }
     
     /**
@@ -252,6 +257,16 @@ public class StreamTest {
         //static Map<String, SampleBean> map = beanList.stream().collect(Collectors.toMap(SampleBean::getName, SampleBean::getAge));
     }
     
+    /**
+     * 转换
+     */
+    @Test
+    public void toSet() {
+        String str = "1,2,3,4,1";
+        Set<String> collect = Arrays.stream(str.split(",")).collect(Collectors.toSet());
+        System.out.println(collect);
+    }
+    
     //TODO 将Map转换成List
     //TODO 将List转换成Map
     //TODO FlatMap 方法使用 https://www.cnblogs.com/JavaWeiBianCheng/p/11936136.html
@@ -260,7 +275,6 @@ public class StreamTest {
         // Stream 提供了新的方法 'forEach' 来迭代流中的每个数据。以下代码片段使用 forEach 输出了4个随机数
         Random random = new Random();
         random.ints().limit(4).forEach(System.out::println);
-        
         
     }
     
