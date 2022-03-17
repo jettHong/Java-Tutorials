@@ -13,6 +13,7 @@
         <module>java-design-patterns</module>
         <module>java-algorithm</module>
         <module>jvm-oom</module>
+        <module>lib-jsoup</module>
     </modules>
 
     <properties>
