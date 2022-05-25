@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.setting.dialect.Props;
 import lombok.Data;
 import org.jsoup.Jsoup;
 
@@ -17,9 +18,10 @@ import java.util.Map;
 
 public class SyncMisMain {
     public static void main(String[] args) throws IOException {
-        String url = "http://XXXXXX";
-        String cookieStr = "SHAREJSESSIONID=请登陆后再复制过来";
-        
+        Props props = new Props("config.properties");
+        String url = props.getStr("url");
+        String cookieStr = props.getStr("cookieStr");
+    
         String body = Jsoup
                 .connect(url)
                 .cookies(converCookie(cookieStr))
