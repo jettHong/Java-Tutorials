@@ -24,9 +24,22 @@ public class VarParameter {
         printArr(new String[]{"1", "2", "3"}); // 3
         printArr(new Object[]{new String[]{"1", "2", "3"}}); // 1，将String数组作为Object数组的一个元素进行传递
         printArr((Object) new String[]{"1", "2", "3"}); // 1
+        
+        // 测试用例2
+        getColor(Color.RED, Color.YELLOW);
     }
     
     private static void printArr(Object... args) {
         System.out.println(args.length);
+    }
+    
+    enum Color {
+        RED, GREEN, YELLOW
+    }
+    
+    public static void getColor(Color... colors) {
+        Arrays.stream(colors).forEach(i -> {
+            System.out.println(i);
+        });
     }
 }
