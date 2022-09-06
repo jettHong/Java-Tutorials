@@ -1,0 +1,71 @@
+{
+  "list": [
+    {
+      "columns": [
+        {
+          "span": 8,
+          "list": [
+            {
+              "ctrlType": "dic",
+              "name": "BUDGET_FROM",
+              "desc": "预算来源",
+              "options": {
+                "dic": "sex",
+                "dicName": "性别"
+              }
+            }
+          ]
+        },
+        {
+          "span": 8,
+          "list": [
+            {
+              "ctrlType": "input",
+              "name": "BUDGET_UNIT",
+              "desc": "预算单位"
+            }
+          ]
+        },
+        {
+          "span": 8,
+          "list": [
+            {
+              "icon": "icon-single",
+              "ctrlType": "input",
+              "name": "BUDGET_YEAR",
+              "desc": "预算年度"
+            }
+          ]
+        }
+      ],
+      "options": {
+        "gutter": 0,
+        "justify": "start",
+        "align": "top"
+      },
+      "key": "1656387867000_40068"
+    },
+    {
+      "ctrlType": "dic",
+      "name": "PROJECT_TYPE",
+      "desc": "项目类别",
+      "options": {
+        "bind": [],
+        "dic": "yn",
+        "dicName": "是否选项"
+      }
+    }
+  ],
+  "config": {
+    "labelWidth": 100,
+    "labelPosition": "right",
+    "size": "small"
+  },
+  "boDefList": [
+    {
+      "id": "1541992699127758848",
+      "alias": "yszbgl",
+      "desc": "预算指标管理"
+    }
+  ]
+}

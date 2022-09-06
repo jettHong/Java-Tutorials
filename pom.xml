@@ -15,6 +15,7 @@
         <module>jvm-oom</module>
         <module>lib-jsoup</module>
         <module>lib-poi-tl</module>
+        <module>lib-json</module>
     </modules>
 
     <properties>
