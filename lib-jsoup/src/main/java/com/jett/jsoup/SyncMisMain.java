@@ -1,16 +1,19 @@
 package com.jett.jsoup;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.setting.dialect.Props;
 import lombok.Data;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,14 +25,22 @@ public class SyncMisMain {
         String url = props.getStr("url");
         String cookieStr = props.getStr("cookieStr");
     
-        String body = Jsoup
+        Connection.Response execute = Jsoup
                 .connect(url)
                 .cookies(converCookie(cookieStr))
                 .ignoreContentType(true)
-                .execute().body();
+                .execute();
+    
+        if (!execute.contentType().contains("json")) {
+            System.out.println("响应结果错误，可能为会话过期。");
+            return;
+        }
+    
+        String body = execute.body();
         
         AddressBook addressBook = JSONUtil.toBean(body, AddressBook.class);
-        ExcelUtil.getWriter(new File("通讯录.xls")).write(addressBook.getRows()).flush();
+        
+        ExcelUtil.getWriter(new File(String.format("通讯录（%s）.xls", LocalDateTimeUtil.formatNormal(LocalDate.now())))).write(addressBook.getRows()).flush();
         System.out.println(addressBook);
         
         String vcfTemp = "BEGIN:VCARD\n" +
@@ -53,7 +64,7 @@ public class SyncMisMain {
             map.put("email", i.email);
             sb.append(StrUtil.format(vcfTemp, map));
         });
-        FileUtil.writeString(sb.toString(), new File("通讯录.vcf"), StandardCharsets.UTF_8);
+        FileUtil.writeString(sb.toString(), new File(String.format("通讯录（%s）.vcf", LocalDateTimeUtil.formatNormal(LocalDate.now()))), StandardCharsets.UTF_8);
         
     }
     
