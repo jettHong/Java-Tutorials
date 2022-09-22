@@ -1,5 +1,8 @@
 package com.jett.java8.stream;
 
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.extra.pinyin.PinyinUtil;
 import com.google.gson.Gson;
 import com.jett.SampleBean;
 import org.junit.Assert;
@@ -35,7 +38,16 @@ public class StreamTest {
             SampleBean.Builder.create().name("小东").age(10).sex("男").friends(Arrays.asList("小明", "华强", "狗蛋")).build(),
             SampleBean.Builder.create().name("小花").age(18).sex("女").friends(Arrays.asList("小东")).build(),
             SampleBean.Builder.create().name("华强").age(18).sex("男").friends(Arrays.asList("小东")).build(),
+            SampleBean.Builder.create().name("吴法吴天").age(12).sex("男").friends(Arrays.asList("小东")).build(),
             SampleBean.Builder.create().name("狗蛋").age(40).sex("男").build()
+    );
+    
+    static List<LinkedHashMap> mapList = Arrays.asList(
+            new LinkedHashMap(){{ put("name", "强仔"); put("age", "10"); }},
+            new LinkedHashMap(){{ put("name", "小明明"); put("age", "7"); }},
+            new LinkedHashMap(){{ put("name", "东哥"); put("age", "7"); }},
+            new LinkedHashMap(){{ put("name", "小花"); put("age", "9"); }}
+    
     );
     
     /**
@@ -79,6 +91,45 @@ public class StreamTest {
         });
         System.out.println(strings);
         //FIXME 本例中有null元素，直接.sorted会导致 NPE。
+    
+        System.out.println("-------多字段排序A-------------");
+        
+        beanList.stream().sorted(
+                Comparator.comparingInt(SampleBean::getAge)
+                        .thenComparing(SampleBean::getName)
+        ).forEach(System.out::println);
+    
+        System.out.println("-------多字段排序B-------------");
+//        beanList.stream().sorted(
+//                Comparator.comparingInt(SampleBean::getAge, (x, y) -> {
+//                            int compare = NumberUtil.compare(x, y);
+//                            return compare;})
+//                        .thenComparing(SampleBean::getName, (x,y) - >{})
+//        ).forEach(System.out::println);
+    
+
+        System.out.println("--------------------");
+        mapList.stream().sorted(
+                Comparator.comparingInt(i -> MapUtil.getInt((Map<?, ?>) i, "age"))
+                        .thenComparing((x,y)->{
+                            Map<?, ?> mapx = (Map<?, ?>) x;
+                            Map<?, ?> mapy = (Map<?, ?>) y;
+                            String namex = PinyinUtil.getPinyin(MapUtil.getStr(mapx, "name"));
+                            String namey = PinyinUtil.getPinyin(MapUtil.getStr(mapy, "name"));
+                            return namex.compareTo(namey);
+                        })
+        ).forEach(System.out::println);
+
+// 说是下面两项排序结果不一样？
+//        categories.stream().sorted(
+//                Comparator.comparing(Category ::getUseCount,(c1,c2) -> {return c2.compareTo(c1);})
+//                        .thenComparing(Category::getUpdateTime,(c1,c2) -> {return c2.compareTo(c1);})
+//        ).collect(Collectors.toList());
+//
+//        categories.stream().sorted(
+//                Comparator.comparing(Category::getUseCount)
+//                        .thenComparing(Category::getUpdateTime)
+//        ).collect(Collectors.toList());
 
 //        System.out.println(collect);
         // 下面示例所说可以避免NPE。
